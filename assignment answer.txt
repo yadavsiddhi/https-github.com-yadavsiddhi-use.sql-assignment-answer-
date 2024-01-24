@@ -1,4 +1,4 @@
- -- Identify a table in the Sakila database that violates 1NF Explain how you would normalize it to achieve 1NF.
+-- Identify a table in the Sakila database that violates 1NF Explain how you would normalize it to achieve 1NF.
 
    CREATE TABLE film (
            film_id INT PRIMARY KEY,
@@ -17,7 +17,6 @@
            FOREIGN KEY (feature_id) REFERENCES special_features(feature_id)
     );
 
-
  -- Choose a table in Sakila and describe how you would determine whether it is in 2NF If it violates 2NF, explain the steps to normalize it.
 
    CREATE TABLE film_actor (
@@ -27,9 +26,9 @@
           PRIMARY KEY (actor_id, film_id)
    );
 
- -- Identify a table in Sakila that violates 3NF Describe the transitive dependencies present and outline the steps to normalize the table to 3NF.
+ -- Identify a table in Sakila that violates 3NF Describe the transitive dependencies present and outline the steps to normalize the 
+    table to 3NF.
     
-
     CREATE TABLE film (
          film_id INT PRIMARY KEY,
          title VARCHAR(255),
@@ -37,7 +36,6 @@
          rental_rate DECIMAL(4,2),
          length INT
     );
-
     CREATE TABLE original_language (
          film_id INT PRIMARY KEY,
          original_language_id INT,
@@ -45,7 +43,8 @@
          FOREIGN KEY (original_language_id) REFERENCES language(language_id)
     );
 
- -- Take a specific table in Sakila and guide through the process of normalizing it from the initial unnormalized form up to at least 2NF.
+ -- Take a specific table in Sakila and guide through the process of normalizing it from the initial unnormalized form up to at least 
+    2NF.
 
     CREATE TABLE rental (
          rental_id INT PRIMARY KEY,
@@ -56,7 +55,8 @@
          staff_id INT
     );
  
- -- Write a query using a CTE to retrieve the distinct list of actor names and the number of films they have acted in from the and tables.
+ -- Write a query using a CTE to retrieve the distinct list of actor names and the number of films they have acted in from the and 
+    tables.
 
     WITH ActorFilmCount AS (
     SELECT
@@ -69,7 +69,6 @@
     GROUP BY
         a.actor_id, actor_name
     )
-
     SELECT
         actor_name,
         film_count
@@ -139,7 +138,6 @@
     GROUP BY
         c.customer_id, customer_name
     )
-
     SELECT
         customer_id,
         customer_name,
@@ -183,7 +181,6 @@
     HAVING
         COUNT(*) > 2
     )
-
     SELECT
         c.customer_id,
         CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
@@ -207,7 +204,6 @@
     GROUP BY
         rental_month
     )
-
     SELECT
         rental_month,
         total_rentals
@@ -230,7 +226,6 @@
     GROUP BY
         customer_id
    )
-
    SELECT
         cp.customer_id,
         CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
@@ -274,7 +269,8 @@
    ORDER BY
        ap.film_id, ap.actor1_id, ap.actor2_id;
 
- -- Implement a recursive CTE to find all employees in the staff table who report to a specific manager, considering the reports_to column.
+ -- Implement a recursive CTE to find all employees in the staff table who report to a specific manager, considering the reports_to 
+    column.
 
    WITH RecursiveEmployeeHierarchy AS (
     SELECT
@@ -296,7 +292,6 @@
         staff s
     JOIN RecursiveEmployeeHierarchy reh ON s.reports_to = reh.staff_id
     )
-
     SELECT
        staff_id,
        first_name,
